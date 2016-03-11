@@ -6,16 +6,10 @@ paths:
   /frameworks:
     get:
       description: |
-        Get the available frameworks
+        list the available frameworks
+      operationId: listFrameworks
       tags:
         - Frameworks
-      parameters:
-        - name: size
-          in: query
-          description: Size of array
-          required: true
-          type: number
-          format: double
       responses:
         '200':
           description: Successful response
@@ -24,17 +18,72 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Framework'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      description: |
+        add a framework
+      operationId: addFramework
+
+      tags:
+        - Frameworks
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: ArrayofFrameworks
+            type: array
+            items:
+              $ref: '#/definitions/Framework'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /frameworks/{frameworkID}:
+    get:
+      summary: Info for a specific framework
+      operationId: showFrameworkbyID
+      tags:
+        - Frameworks
+      parameters:
+        - name: frameworkID
+          in: path
+          required: true
+          description: The id of the framework to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Framework'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
 
 
 definitions:
   Framework:
-      type: object
-      properties:
-        name:
-          type: string
-        gpu_support:
-          type: boolean
-        multiple_gpu_support:
-          type: boolean
-        multiple_machine_support:
-          type: boolean
+    type: object
+    properties:
+      name:
+        type: string
+      gpu_support:
+        type: boolean
+      multiple_gpu_support:
+        type: boolean
+      multiple_machine_support:
+        type: boolean
+
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

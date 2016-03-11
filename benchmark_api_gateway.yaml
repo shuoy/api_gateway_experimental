@@ -1,0 +1,40 @@
+swagger: '2.0'
+info:
+  version: 0.1.0
+  title: Benchmark for API Gateway Demo
+paths:
+  /frameworks:
+    get:
+      description: |
+        Get the available frameworks
+      tags:
+        - Frameworks
+      parameters:
+        - name: size
+          in: query
+          description: Size of array
+          required: true
+          type: number
+          format: double
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: ArrayofFrameworks
+            type: array
+            items:
+              $ref: '#/definitions/Framework'
+
+
+definitions:
+  Framework:
+      type: object
+      properties:
+        name:
+          type: string
+        gpu_support:
+          type: boolean
+        multiple_gpu_support:
+          type: boolean
+        multiple_machine_support:
+          type: boolean

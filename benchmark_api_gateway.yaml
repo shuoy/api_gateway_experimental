@@ -23,6 +23,21 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
+    post:
+      description: |
+        add a framework
+      operationId: addFramework
+
+      tags:
+        - Frameworks
+      responses:
+        '201':
+          description: Null response
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
   /frameworks/{frameworkID}:
     get:
       summary: Info for a specific framework

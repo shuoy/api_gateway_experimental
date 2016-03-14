@@ -12,12 +12,12 @@ paths:
         - Frameworks
       responses:
         '200':
-          description: Successful response
+          description: listOfFramework
           schema:
             title: ArrayofFrameworks
             type: array
             items:
-              $ref: '#/definitions/Framework'
+              $ref: '#/definitions/ItemizedFramework'
         default:
           description: Unexpected error
           schema:
@@ -27,7 +27,13 @@ paths:
       description: |
         add a framework
       operationId: addFramework
-
+      parameters:
+        - name: framework
+          in: body
+          description: The pet JSON you want to post
+          schema:
+            $ref: '#/definitions/Framework'
+          required: true
       tags:
         - Frameworks
       responses:
@@ -54,7 +60,7 @@ paths:
         "200":
           description: Expected response to a valid request
           schema:
-            $ref: '#/definitions/Framework'
+            $ref: '#/definitions/ItemizedFramework'
         default:
           description: unexpected error
           schema:
@@ -62,10 +68,24 @@ paths:
 
 
 definitions:
+  ItemizedFramework:
+    type: object
+    allOf:
+      - $ref: '#/definitions/Framework'
+      - required:
+          - id
+        properties:
+          id:
+            type: integer
+            format: int64
   Framework:
     type: object
+    required:
+      - name
     properties:
       name:
+        type: string
+      repo_url:
         type: string
       gpu_support:
         type: boolean

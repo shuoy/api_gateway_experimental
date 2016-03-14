@@ -22,25 +22,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-    post:
-      description: |
-        add a framework
-      operationId: addFramework
 
-      tags:
-        - Frameworks
-      responses:
-        '200':
-          description: Successful response
-          schema:
-            title: ArrayofFrameworks
-            type: array
-            items:
-              $ref: '#/definitions/Framework'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
   /frameworks/{frameworkID}:
     get:
       summary: Info for a specific framework

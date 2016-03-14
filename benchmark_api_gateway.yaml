@@ -31,7 +31,7 @@ paths:
       tags:
         - Frameworks
       responses:
-        '201':
+        '200':
           description: Null response
         default:
           description: Unexpected error
